@@ -5,6 +5,11 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibWF4bWFsa2luIiwiYSI6ImNsczVpamxlODFoaG0ycnBhd
 //builings json
 const buildings = [
     {
+        "name": "UW 1",
+        "latitude": 47.758663,
+        "longitude": -122.190643,
+    },
+    {
         "name": "UW 2",
         "latitude": 47.758687,
         "longitude": -122.191351,
@@ -15,19 +20,9 @@ const buildings = [
         "longitude": -122.191931,
     },
     {
-        "name": "UW 1",
-        "latitude": 47.758663,
-        "longitude": -122.190643,
-    },
-    {
-        "name": "Library \n(LB)",
-        "latitude": 47.759829,
-        "longitude": -122.191434,
-    },
-    {
-        "name": "Activities \n& Recreation \nCenter \n(ARC)",
-        "latitude": 47.759948,
-        "longitude": -122.190274,
+        "name": "Innovation \nHall \n(INV)",
+        "latitude": 47.760400,
+        "longitude": -122.192551,
     },
     {
         "name": "CC 1",
@@ -45,15 +40,20 @@ const buildings = [
         "longitude": -122.192626,
     },
     {
+        "name": "Library \n(LB)",
+        "latitude": 47.759829,
+        "longitude": -122.191434,
+    },
+    {
+        "name": "Activities \n& Recreation \nCenter \n(ARC)",
+        "latitude": 47.759948,
+        "longitude": -122.190274,
+    },
+    {
         "name": "North Creek \nEvent Center \n(NCEC)",
         "latitude": 47.760299,
         "longitude": -122.190565,
     },
-    {
-        "name": "Innovation \nHall \n(INV)",
-        "latitude": 47.760400,
-        "longitude": -122.192551,
-    }
 ]
 
 //map init
@@ -110,6 +110,22 @@ map.on('load', () => {
         paint: {
             'text-color': '#FFD700',
         },
+    });
+
+    // building nav buttons
+    const buildingButtonsContainer = document.getElementById('building-buttons');
+    buildings.forEach(building => {
+        const button = document.createElement('button');
+        button.textContent = building.name;
+        button.classList.add('building-button');
+        button.addEventListener('click', () => {
+            map.flyTo({
+                center: [building.longitude, building.latitude],
+                zoom: 19,
+                essential: true
+            });
+        });
+        buildingButtonsContainer.appendChild(button);
     });
 });
 

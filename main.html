@@ -10,7 +10,7 @@
 
 <header>
     <h1>Campus Map and Staff Directory</h1>
-    <div class="button-container">
+    <div class="header-buttons">
         <button class="button">Home</button>
         <button class="button">Directory</button>
         <button class="button">UW Website</button>
@@ -19,7 +19,10 @@
 </header>
 
 <body>
-    <div id="map"></div>
+    <div class="flex-container">
+        <div id="map"></div>
+        <div id="building-buttons"></div>
+    </div>
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
     <script src="app.js"></script>
 </body>

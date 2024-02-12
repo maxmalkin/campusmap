@@ -4,12 +4,14 @@ body {
 }
 
 #map {
+    display: flex;
     height: calc(85vh - 50px); 
     width: 66%; 
     margin: 25px auto;
     margin-left: 25px; 
     border: 5px solid #4b2e83; 
     box-sizing: border-box; 
+    flex: 2;
 }
 
 header {
@@ -24,7 +26,7 @@ header {
     position: relative; 
 }
 
-.button-container {
+.header-buttons {
     display: flex;
     justify-content: center;
     width: 100%;
@@ -43,10 +45,39 @@ header {
     transition: transform 0.3s ease;
 }
 .button:hover {
-    transform: skew(-20deg) scale(1.1); /* Scale up on hover */
+    transform: skew(-20deg) scale(1.1);
 }
 .button:active {
     transform: skew(-20deg) scale(0.9); 
+}
+
+#building-buttons {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-self: flex-start;
+    margin: 25px;
+}
+.building-button {
+    right: 25px;
+    background-color: #4b2e83;
+    color: #ffffff; 
+    padding: 5px 10px; 
+    border-radius: 5px;
+    margin: 5px;
+    font-size: 14px;
+    width: 150px;
+}
+.building-button:hover {
+    transform: scale(1.1);
+}
+.building-button:active {
+    transform: scale(0.9); 
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
 }
 
 body {
