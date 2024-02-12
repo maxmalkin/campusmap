@@ -62,7 +62,7 @@ const map = new mapboxgl.Map({
     style: 'mapbox://styles/mapbox/dark-v10',
     center: [-122.191392, 47.759708], //map center
     zoom: 17,
-    pitch: 6,
+    pitch: 20,
     maxBounds: [
         [-122.196920, 47.757326], // SW bound
         [-122.187897, 47.763077]  // NE bound
@@ -129,7 +129,12 @@ map.on('load', () => {
     });
 });
 
-/* MANUAL LABELS
+
+
+/* 
+// old 
+
+MANUAL LABELS
     // add map layer for building labels
     map.addLayer({
         id: 'building-labels',
