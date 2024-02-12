@@ -580,6 +580,7 @@ const staffData =
 },
 ];
 
+//search functionality
 const searchInput = document.getElementById('searchInput');
 const resultsList = document.getElementById('results');
 
@@ -598,20 +599,16 @@ searchInput.addEventListener('input', function () {
   });
 });
 
+//page switching
 document.addEventListener('DOMContentLoaded', function () {
-  // Add click event listener to the document
   document.addEventListener('click', function (event) {
-      // Check if the clicked element is a button with the class 'button'
       if (event.target.matches('.button')) {
-          // Redirect to main.html if the home button is clicked
           if (event.target.textContent === 'Home') {
               window.location.href = 'main.html';
           }
-          // Redirect to directorypage.html if the directory button is clicked
           else if (event.target.textContent === 'Directory') {
               window.location.href = 'directorypage.html';
           }
-          // Add conditions for other buttons if needed
       }
   });
 });
