@@ -582,23 +582,47 @@ const staffData =
 
 //search functionality
 const searchInput = document.getElementById('searchInput');
-const resultsList = document.getElementById('results');
+const resultsTable = document.getElementById('results');
 
 searchInput.addEventListener('input', function () {
   const searchTerm = this.value.toLowerCase();
-  resultsList.innerHTML = '';
+  resultsTable.innerHTML = '';
 
   const filteredStaff = staffData.filter(staff => {
     return staff.firstname.toLowerCase().includes(searchTerm) || staff.lastname.toLowerCase().includes(searchTerm);
   });
 
-  filteredStaff.forEach(staff => {
-    const listItem = document.createElement('li');
-    listItem.textContent = `${staff.firstname} ${staff.lastname} - ${staff.email}, OFFICE HOURS: ${staff.officehours}`;
-    resultsList.appendChild(listItem);
-  });
-});
+  if (filteredStaff.length > 0) {
+    const table = document.createElement('table');
+    const headerRow = document.createElement('tr');
+    const headers = ['First Name', 'Last Name', 'Email', 'Office Hours'];
 
+    headers.forEach(headerText => {
+      const header = document.createElement('th');
+      header.textContent = headerText;
+      headerRow.appendChild(header);
+    });
+
+    table.appendChild(headerRow);
+
+    filteredStaff.forEach(staff => {
+      const row = document.createElement('tr');
+      const rowData = [staff.firstname, staff.lastname, staff.email, staff.officehours || ''];
+
+      rowData.forEach(text => {
+        const cell = document.createElement('td');
+        cell.textContent = text ? text : 'No office hours';
+        row.appendChild(cell);
+      });
+
+      table.appendChild(row);
+    });
+
+    resultsTable.appendChild(table);
+  } else {
+    resultsTable.textContent = 'No results found';
+  }
+});
 //page switching
 document.addEventListener('DOMContentLoaded', function () {
   document.addEventListener('click', function (event) {
@@ -608,6 +632,12 @@ document.addEventListener('DOMContentLoaded', function () {
           }
           else if (event.target.textContent === 'Directory') {
               window.location.href = 'directorypage.html';
+          }
+          else if (event.target.textContent === 'UW Website') {
+              window.location.href = 'https://www.uwb.edu/'
+          }
+          else if (event.target.textContent === 'Cascadia Website') {
+              window.location.href = 'https://www.cascadia.edu/'
           }
       }
   });
