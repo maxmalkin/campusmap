@@ -582,47 +582,84 @@ const staffData =
 
 //search functionality
 const searchInput = document.getElementById('searchInput');
+const sortSelect = document.getElementById('sort-select');
+const sortText = document.getElementById('sort-text');
 const resultsTable = document.getElementById('results');
+let filteredStaff = [];
+
+sortSelect.style.display = 'none';
+sortText.style.display = 'none';
+resultsTable.textContent = 'Please begin searching to see results.';
 
 searchInput.addEventListener('input', function () {
-  const searchTerm = this.value.toLowerCase();
+  const searchTerm = this.value.trim().toLowerCase();
+  filterAndRenderResults(searchTerm);
+});
+
+sortSelect.addEventListener('change', function () {
+  const searchTerm = searchInput.value.trim().toLowerCase();
+  filterAndRenderResults(searchTerm);
+});
+
+function filterAndRenderResults(searchTerm) {
   resultsTable.innerHTML = '';
 
-  const filteredStaff = staffData.filter(staff => {
-    return staff.firstname.toLowerCase().includes(searchTerm) || staff.lastname.toLowerCase().includes(searchTerm);
-  });
+  if (searchTerm) {
+    filteredStaff = staffData.filter(staff => {
+      return staff.firstname.toLowerCase().includes(searchTerm) || staff.lastname.toLowerCase().includes(searchTerm);
+    });
+  } else {
+    filteredStaff = [];
+  }
 
   if (filteredStaff.length > 0) {
-    const table = document.createElement('table');
-    const headerRow = document.createElement('tr');
-    const headers = ['First Name', 'Last Name', 'Email', 'Office Hours'];
-
-    headers.forEach(headerText => {
-      const header = document.createElement('th');
-      header.textContent = headerText;
-      headerRow.appendChild(header);
-    });
-
-    table.appendChild(headerRow);
-
-    filteredStaff.forEach(staff => {
-      const row = document.createElement('tr');
-      const rowData = [staff.firstname, staff.lastname, staff.email, staff.officehours || ''];
-
-      rowData.forEach(text => {
-        const cell = document.createElement('td');
-        cell.textContent = text ? text : 'No office hours';
-        row.appendChild(cell);
-      });
-
-      table.appendChild(row);
-    });
-
-    resultsTable.appendChild(table);
+    sortSelect.style.display = 'inline'; 
+    sortText.style.display = 'inline';
+    sortResults();
+    renderResultsTable();
   } else {
-    resultsTable.textContent = 'No results found';
+    sortSelect.style.display = 'none'; 
+    sortText.style.display = 'none';
+    resultsTable.textContent = 'No results found.';
   }
-});
+}
+
+function sortResults() {
+  const sortBy = sortSelect.value;
+  filteredStaff.sort((a, b) => {
+    return a[sortBy].localeCompare(b[sortBy]);
+  });
+}
+
+function renderResultsTable() {
+  const table = document.createElement('table');
+  const headerRow = document.createElement('tr');
+  const headers = ['First Name', 'Last Name', 'Email', 'Office Hours'];
+
+  headers.forEach(headerText => {
+    const header = document.createElement('th');
+    header.textContent = headerText;
+    headerRow.appendChild(header);
+  });
+
+  table.appendChild(headerRow);
+
+  filteredStaff.forEach(staff => {
+    const row = document.createElement('tr');
+    const rowData = [staff.firstname, staff.lastname, staff.email, staff.officehours || ''];
+
+    rowData.forEach(text => {
+      const cell = document.createElement('td');
+      cell.textContent = text ? text : 'No office hours found';
+      row.appendChild(cell);
+    });
+
+    table.appendChild(row);
+  });
+
+  resultsTable.appendChild(table);
+}
+
 //page switching
 document.addEventListener('DOMContentLoaded', function () {
   document.addEventListener('click', function (event) {

@@ -20,7 +20,18 @@
   <h2>Staff Directory</h2>
   <h3>Search staff member by first or last name.</h3>
   <input type="text" id="searchInput" placeholder="Search by first or last name">
+  <div class="flex-container-sort">
+    <div id="sort-text">
+      <h4>Sort by: </h4>
+    </div>
+    <div class="sort-dropdown">
+      <select id="sort-select">
+        <option value="firstname">First Name</option>
+        <option value="lastname">Last Name</option>
+        <option value="email">Email</option>
+      </select>
+    </div>
+  </div>
   <ul id="results"></ul>
   <script src="search.js"></script>
 </body>
-</html>
