@@ -160,13 +160,10 @@ map.on('load', () => {
         }
     });
 
-    // Add popup functionality
     map.on('click', 'waypoint-layer', (e) => {
         const coordinates = e.features[0].geometry.coordinates.slice();
         const popupText = e.features[0].properties.popupText;
 
-        // Ensure that if the map is zoomed out such that multiple copies of the feature are visible,
-        // the popup appears over the copy being pointed to.
         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
         }
@@ -177,12 +174,10 @@ map.on('load', () => {
             .addTo(map);
     });
 
-    // Change the cursor to a pointer when the mouse is over the waypoint layer
     map.on('mouseenter', 'waypoint-layer', () => {
         map.getCanvas().style.cursor = 'pointer';
     });
 
-    // Change it back to a pointer when it leaves
     map.on('mouseleave', 'waypoint-layer', () => {
         map.getCanvas().style.cursor = '';
     });

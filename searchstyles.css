@@ -83,7 +83,7 @@ header {
 }
 table {
   border-collapse: collapse;
-  margin: 50px;
+  margin: auto;
   border: 3px solid #4b2e83;
 }
 
